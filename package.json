@@ -1,0 +1,23 @@
+{
+  "name": "elasticsearch-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdulhade/elasticsearch-practice.git"
+  },
+  "author": "Abdul Abbas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdulhade/elasticsearch-practice/issues"
+  },
+  "homepage": "https://github.com/abdulhade/elasticsearch-practice#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "inquirer": "^7.3.3"
+  }
+}
