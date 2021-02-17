@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 const inquirer = require("inquirer");
 const axios = require("axios");
@@ -65,7 +66,7 @@ async function elasticDeleteIndex(indexName) {
   console.log(JSON.stringify(response.data));
 }
 
-(function run() {
+(() => {
   inquirer.prompt([
     {
       type: "rawlist",
