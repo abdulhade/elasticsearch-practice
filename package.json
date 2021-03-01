@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "inquirer": "^7.3.3",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.2"
   }
 }

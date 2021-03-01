@@ -5,8 +5,8 @@ const axios = require("axios");
 const ELASTIC_URL = "http://localhost:9200";
 const INDEX = "books"
 
-const elasticCreateDocument = async (title, author, rating) => {
-  const response = await axios.post(`${ELASTIC_URL}/${INDEX}/_doc`, { title, author, rating });
+const elasticCreateDocument = async (book) => {
+  const response = await axios.post(`${ELASTIC_URL}/${INDEX}/_doc`, book);
 
   console.log(response.data);
 };
@@ -86,7 +86,9 @@ const createDocument = async () => {
     }
   ]).then((answers) => {
 
-    elasticCreateDocument(answers['title'], answers['author'], answers['rating']);
+    const book = {...answers};
+
+    elasticCreateDocument(book);
 
   })
   .catch((e) => {
@@ -151,3 +153,4 @@ const updateDocument = async (docId) => {
     console.log(e);
   });
 })();
+
