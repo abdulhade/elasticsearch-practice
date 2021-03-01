@@ -32,6 +32,13 @@ var callDslSearchRatingGte = function callDslSearchRatingGte(title, value) {
                 "should": [],
                 "must_not": []
               }
+            },
+            "aggs": {
+              "stats_ratings": {
+                "stats": {
+                  "field": "rating"
+                }
+              }
             }
           };
           _context.next = 3;
@@ -40,9 +47,10 @@ var callDslSearchRatingGte = function callDslSearchRatingGte(title, value) {
         case 3:
           _ref = _context.sent;
           data = _ref.data;
+          parseStatsResult(data.aggregations);
           parseResult(data.hits.hits);
 
-        case 6:
+        case 7:
         case "end":
           return _context.stop();
       }
@@ -96,6 +104,10 @@ var parseResult = function parseResult(hits) {
     books.push(mapperBook(hit));
   });
   console.table(books);
+};
+
+var parseStatsResult = function parseStatsResult(aggregations) {
+  console.table(aggregations.stats_ratings);
 };
 
 (function _callee() {

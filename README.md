@@ -2,6 +2,7 @@
 
 - Install Elastic Search;
 - Install Kibana;
+- Run Elastic and Kibana;
 - git clone;
 
 ## Run:

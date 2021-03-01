@@ -4,7 +4,6 @@ const axios = require("axios");
 const ELASTIC_URL = "http://localhost:9200";
 const INDEX = "books";
 
-
 const callDslSearchRatingGte = async (title, value) => {
   const body = {
     "query": {
@@ -28,12 +27,21 @@ const callDslSearchRatingGte = async (title, value) => {
         "should": [],
         "must_not": []
       }
+    },
+    "aggs": {
+      "stats_ratings": {
+        "stats": {
+          "field": "rating"
+        }
+      }
     }
   };
 
   const { data } = await axios.post(`${ELASTIC_URL}/${INDEX}/_search`, body);
 
+  parseStatsResult(data.aggregations);
   parseResult(data.hits.hits);
+
 };
 
 const callDslSearchByName = async (name) => {
@@ -71,6 +79,10 @@ const parseResult = (hits) => {
   });
 
   console.table(books);
+};
+
+const parseStatsResult = (aggregations) => {
+  console.table(aggregations.stats_ratings);
 };
 
 (async () => {

@@ -1,0 +1,755 @@
+{
+	"info": {
+		"_postman_id": "dc526875-565e-474e-9cdc-b0173ab41760",
+		"name": "Elastic Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Index API",
+			"item": [
+				{
+					"name": "Elastic GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Index",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"settings\": {\r\n        \"index\": {\r\n            \"number_of_shards\": 10,\r\n            \"number_of_replicas\": 10\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Index",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"settings\": {\r\n        \"index\": {\r\n            \"number_of_shards\": 10,\r\n            \"number_of_replicas\": 10\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Index with Settings",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/books-settings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books-settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Document API",
+			"item": [
+				{
+					"name": "Add Document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Lord of the Rings\",\r\n    \"author\": \"JRR Tolkien\",\r\n    \"rating\": 3.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_doc/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Document (Generated ID)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Harry Potter\",\r\n    \"author\": \"J K Rowling\",\r\n    \"rating\": 3.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_doc/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_doc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"query\": {\r\n    \"match_all\": { \"boost\" : 1.2 }\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search?filter_path=hits.hits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "filter_path",
+									"value": "hits.hits"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document Title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/books/_doc/1?_source_includes=title,rating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_doc",
+								"1"
+							],
+							"query": [
+								{
+									"key": "_source_includes",
+									"value": "title,rating"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/books/_doc/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search API - Kibana",
+			"item": [
+				{
+					"name": "Get All Books - URI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books - URI - By Query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/books/_search?q=harry&sort=title:asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "harry"
+								},
+								{
+									"key": "sort",
+									"value": "title:asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books - URI - By Query - Sort By",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/books/_search?q=harry&sort=id:asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "harry"
+								},
+								{
+									"key": "sort",
+									"value": "id:asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books By Query - DSL",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": {\r\n        \"query_string\": {\r\n            \"query\": \"Lord\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books Full Text - DSL - Match",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_source\": [\"title\", \"description\"],\r\n    \"query\": {\r\n        \"match\": {\r\n            \"title\": \"Lord\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books Full Text - DSL - Multi Match",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": {\r\n        \"multi_match\": {\r\n            \"query\": \"Lord\",\r\n            \"fields\": [\"title\", \"description\"]\r\n        }\r\n    },\r\n    \"size\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books Full Text - DSL - Search Terms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_source\": [\"title\", \"description\"],\r\n    \"query\": {\r\n        \"term\": {\r\n            \"rating\": 3\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books Full Text - DSL - Range Query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_source\": [\"title\", \"description\"],\r\n    \"query\": {\r\n        \"range\": {\r\n            \"rating\": {\r\n                \"gt\": 4\r\n            }\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books - Compound Query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"size\": 10,\r\n    \"query\": {\r\n        \"bool\": {\r\n            \"must\": [\r\n                {\r\n                    \"query_string\": {\r\n                        \"query\": \"King\"\r\n                    }\r\n                }\r\n            ],\r\n            \"filter\": [\r\n                {\r\n                    \"range\": {\r\n                        \"page_count\": {\r\n                            \"gt\": 1000\r\n                        }\r\n                    }\r\n                }\r\n            ],\r\n            \"should\": [],\r\n            \"must_not\": []\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books - Compound Query - Multi Match",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"size\": 10,\r\n    \"query\": {\r\n        \"bool\": {\r\n            \"must_not\": [\r\n                {\r\n                    \"match\": {\r\n                        \"title\": \"(king) AND (queen)\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Aggregations",
+			"item": [
+				{
+					"name": "AVG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"avg_rating\": {\r\n            \"avg\": {\r\n                  \"field\": \"rating\" \r\n            }          \r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cardinality",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"cardinality_author\": {\r\n            \"cardinality\": {\r\n                \"field\": \"author\"\r\n            }\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Max Aggregations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"max_rating\": {\r\n            \"max\": {\r\n                  \"field\": \"rating\" \r\n            }          \r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sum",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"sum_pages\": {\r\n            \"sum\": {\r\n                  \"field\": \"page_count\" \r\n            }          \r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"all_prices_stats\": {\r\n            \"stats\": {\r\n                  \"field\": \"voters\" \r\n            }          \r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats Extended",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"all_prices_stats\": {\r\n            \"extended_stats\": {\r\n                  \"field\": \"voters\" \r\n            }          \r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Terms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aggs\": {\r\n        \"rating\": {\r\n            \"terms\": {\r\n                \"field\": \"rating\"\r\n            }\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/books/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"books",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
